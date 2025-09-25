@@ -6,7 +6,6 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import uuid
 from datetime import datetime
-import os
 from collections import Counter
 
 # MongoDB Configuration
@@ -15,7 +14,7 @@ def init_connection():
     """Initialize MongoDB connection"""
     try:
         # Get MongoDB URI from environment variable or Streamlit secrets
-        mongo_uri = os.getenv("MONGODB_URI") or st.secrets.get("MONGODB_URI", "mongodb://localhost:27017/")
+        mongo_uri = st.secrets.get("MONGODB_URI", "mongodb://localhost:27017/")
         client = pymongo.MongoClient(mongo_uri)
         return client
     except Exception as e:
