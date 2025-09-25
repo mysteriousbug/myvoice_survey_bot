@@ -213,8 +213,8 @@ def survey_form():
                 st.balloons()
                 
                 # Option to start new survey
-                if st.button("🔄 Start New Survey"):
-                    st.experimental_rerun()
+                # if st.button("🔄 Start New Survey"):
+                    # st.experimental_rerun()
             else:
                 st.error("❌ Failed to submit survey. Please try again.")
 
