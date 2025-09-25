@@ -1,4 +1,4 @@
-import streamlit as st 
+import streamlit as st
 import pymongo
 import pandas as pd
 import plotly.express as px
@@ -40,111 +40,111 @@ def get_data():
 # Survey Questions and Options
 SURVEY_QUESTIONS = {
     "Q1_Retention_Transformation": {
-        "question": "What specific factors related to the Bank's transformation are influencing your decision to stay or consider leaving?",
+        "question": "How are you feeling about all these changes happening at the bank? Are they making you want to stay or think about leaving?",
         "options": {
-            "A": "Optimistic about transformation - I see clear benefits from the changes, understand my role in the new structure, and feel confident about career growth opportunities",
-            "B": "Cautiously supportive - I support the transformation direction but need more clarity on timeline, my role, and how success will be measured",
-            "C": "Concerned but hopeful - I'm worried about job security and increased workload, but believe things will improve with better communication and support",
-            "D": "Considering leaving - The uncertainty, lack of clear direction, and impact on work-life balance are making me actively consider other opportunities"
+            "A": "Pretty excited about it! The changes make sense, I know where I fit, and I can see some good opportunities coming my way",
+            "B": "Cautiously optimistic - I get the direction we're going, but I'd love more clarity on timelines and what exactly my role will look like",
+            "C": "A bit worried but still hopeful - Concerned about job security and the extra workload, but I think it'll work out if we get better communication",
+            "D": "Honestly considering other options - The uncertainty and impact on my work-life balance is really making me think about looking elsewhere"
         }
     },
     "Q2_Workload_Stress": {
-        "question": "How realistic are your current workloads and deadlines given available resources?",
+        "question": "Let's talk about your workload - are you managing okay with everything on your plate right now?",
         "options": {
-            "A": "Manageable with current support - Workload is reasonable, deadlines are achievable, and I receive adequate support from my manager",
-            "B": "Stretched but coping - Workload is high but manageable with occasional support; need more flexible deadlines during peak periods",
-            "C": "Overwhelmed regularly - Consistently struggle to meet deadlines, work long hours frequently, need better resource allocation and prioritization help",
-            "D": "Unsustainable pressure - Workload is unrealistic, affecting health and personal life significantly; need immediate intervention and workload redistribution"
+            "A": "It's all good! My workload feels reasonable, deadlines are doable, and my manager has my back",
+            "B": "It's pretty intense but I'm handling it - could use some flexibility on deadlines when things get crazy busy though",
+            "C": "I'm struggling to keep up - working long hours regularly, missing deadlines, and could really use some help with prioritizing",
+            "D": "It's honestly unsustainable - the pressure is affecting my health and personal life, something needs to change ASAP"
         }
     },
     "Q3_Decision_Making": {
-        "question": "How would you rate the decision-making processes and communication in your work environment?",
+        "question": "How's the decision-making around here? Do things move at a reasonable pace or are you stuck waiting for answers a lot?",
         "options": {
-            "A": "Generally effective - Decisions are made in reasonable timeframes with clear communication about rationale and next steps",
-            "B": "Occasional delays - Some decisions take longer than needed, but usually get clarity eventually; would benefit from regular updates",
-            "C": "Frequent bottlenecks - Often wait weeks for decisions, causing project delays and rework; need clearer escalation processes and timelines",
-            "D": "Significantly impacted - Decision delays are causing major disruptions, missed opportunities, and team frustration; need complete process overhaul"
+            "A": "Pretty smooth actually - decisions happen in reasonable time and we usually understand the 'why' behind them",
+            "B": "Sometimes we wait longer than we'd like, but we eventually get there - more regular updates would be nice",
+            "C": "Lots of waiting around - weeks for simple decisions, causing delays and having to redo work because priorities changed",
+            "D": "It's a real problem - the delays are causing major issues, missed opportunities, and everyone's getting frustrated"
         }
     },
     "Q4_Input_Involvement": {
-        "question": "Do you feel your input is genuinely considered when changes affecting your work are being planned?",
+        "question": "When changes are happening that affect your work, do you feel like anyone actually listens to what you have to say?",
         "options": {
-            "A": "Actively involved - Regularly consulted on changes, feel my input is valued and see it reflected in final decisions",
-            "B": "Sometimes consulted - Asked for input on some changes but not always sure how it's used; would like more feedback on suggestions",
-            "C": "Rarely involved - Occasionally asked for input but decisions seem pre-made; need earlier involvement in planning stages",
-            "D": "Not consulted - Changes are usually announced without prior consultation; feel like my expertise and experience are undervalued"
+            "A": "Absolutely! I'm regularly asked for input and can see my suggestions actually being used in the final decisions",
+            "B": "Sometimes they ask, but I'm not always sure what happens with my feedback - would love to know how it's being used",
+            "C": "Rarely get asked, and when I am, it feels like the decision was already made anyway",
+            "D": "Never really consulted - just get told about changes after they're decided, which is frustrating given my experience"
         }
     },
     "Q5_Performance_Recognition": {
-        "question": "How fairly do you feel your contributions and performance are evaluated compared to your peers?",
+        "question": "Do you feel like your hard work gets recognized fairly, especially compared to your teammates?",
         "options": {
-            "A": "Fair and transparent - Evaluation process is clear, consistent across the team, and my contributions are appropriately recognized",
-            "B": "Generally fair - Mostly satisfied with evaluations but would like more specific feedback and clearer criteria for recognition",
-            "C": "Inconsistent treatment - Notice differences in how similar contributions are evaluated; need more standardized and objective criteria",
-            "D": "Unfair or biased - Feel my contributions are undervalued compared to peers; evaluation process lacks transparency and consistency"
+            "A": "Yes, the process feels fair and transparent - my contributions get the recognition they deserve",
+            "B": "Mostly fair, though I'd appreciate more specific feedback and clearer criteria for what gets recognized",
+            "C": "I notice some inconsistency - similar work seems to get different levels of recognition depending on who did it",
+            "D": "Not really - I feel undervalued compared to my peers, and the whole process lacks transparency"
         }
     },
     "Q6_Personal_Growth": {
-        "question": "How effectively is your People Leader supporting your personal growth and career development?",
+        "question": "Is your manager actually helping you grow in your career, especially with all the changes happening?",
         "options": {
-            "A": "Strong support - Manager actively discusses my development, provides growth opportunities, and helps navigate career path during changes",
-            "B": "Basic support - Some development conversations happen but could be more regular and focused; need more specific skill-building opportunities",
-            "C": "Limited support - Development discussions are infrequent and surface-level; need more concrete development plans and learning opportunities",
-            "D": "No meaningful support - Rarely discuss development, no clear growth path, feel like development has been deprioritized during transformation"
+            "A": "Definitely! We regularly talk about my development, and they're actively helping me navigate my career path",
+            "B": "We have some development conversations, but they could be more frequent and focused on specific skills I need",
+            "C": "Not really much happening - our development discussions are pretty rare and don't go very deep",
+            "D": "Honestly, no - we hardly ever talk about my growth, and it feels like development has taken a backseat to everything else"
         }
     },
     "Q7_Tools_Resources": {
-        "question": "What tools, data, or resources do you need but currently lack adequate access to?",
+        "question": "Do you have what you need to do your job well, or are you constantly working around missing tools and resources?",
         "options": {
-            "A": "Well-equipped - Have access to all necessary tools and data to perform effectively, with good technical support available",
-            "B": "Minor gaps - Most tools are available but some upgrades or additional access would improve efficiency and quality of work",
-            "C": "Significant limitations - Missing several important tools or data sources, causing delays and workarounds that reduce productivity",
-            "D": "Major impediments - Lack of basic tools/data is seriously hampering ability to do job effectively and deliver quality results"
+            "A": "I'm all set! Have everything I need to do my job effectively, plus good tech support when I need it",
+            "B": "Pretty well equipped, but there are some tools or upgrades that would definitely make my work easier and better",
+            "C": "Missing quite a few things I need - causes delays and I'm constantly finding workarounds, which slows me down",
+            "D": "It's a real struggle - lacking basic tools and resources that seriously impact my ability to do quality work"
         }
     },
     "Q8_Follow_up_Accountability": {
-        "question": "Of the actions promised from previous My Voice results, how would you rate the follow-through?",
+        "question": "Thinking about what management promised after last year's survey - did they actually follow through on those commitments?",
         "options": {
-            "A": "Strong follow-through - Most promised actions were delivered effectively, can see clear improvements, and trust the feedback process",
-            "B": "Mixed results - Some actions were implemented well while others fell short; generally still believe in the process but expect better execution",
-            "C": "Limited progress - Few meaningful changes despite promises; starting to question whether feedback leads to real improvement",
-            "D": "Broken promises - Most commitments were not delivered as promised; lost confidence in the survey process and management's commitment to change"
+            "A": "They really delivered! Most of what they promised actually happened, I can see real improvements, and I trust the process",
+            "B": "Mixed bag - some things were done well, others not so much, but I still generally believe they're trying",
+            "C": "Not much changed despite all the promises - starting to wonder if this survey actually leads to anything",
+            "D": "Pretty disappointed - most commitments weren't delivered as promised, and honestly, I'm losing faith in the whole process"
         }
     },
     "Q9_Work_Environment": {
-        "question": "What changes to work environment, organizational culture, or team dynamics would have the greatest positive impact?",
+        "question": "What would make the biggest difference in making this a better place to work day-to-day?",
         "options": {
-            "A": "Environment is positive - Current culture and team dynamics are supportive and conducive to good work; minor tweaks would help",
-            "B": "Need collaboration improvements - Good foundation but need better cross-team communication and more collaborative decision-making",
-            "C": "Cultural issues - Significant problems with blame culture, politics, or lack of psychological safety that need addressing",
-            "D": "Toxic environment - Major cultural problems affecting morale, performance, and well-being; need fundamental culture change"
+            "A": "It's already pretty good! The culture and team dynamics are supportive - just minor tweaks needed",
+            "B": "Better collaboration would help - we need improved communication between teams and more inclusive decision-making",
+            "C": "Some serious culture issues to fix - too much blame, office politics, or people not feeling safe to speak up",
+            "D": "Major problems here - the culture is really toxic and affecting everyone's morale and well-being"
         }
     },
     "Q10_Open_Communication": {
-        "question": "How comfortable do you feel expressing challenging views or concerns?",
+        "question": "Can you speak up when you disagree with something or have concerns, or do you keep quiet to avoid trouble?",
         "options": {
-            "A": "Very comfortable - Feel safe expressing any concerns or challenging ideas, with leadership actively encouraging diverse viewpoints",
-            "B": "Generally comfortable - Usually feel safe speaking up but sometimes hesitate on sensitive topics; would benefit from more encouragement",
-            "C": "Selective comfort - Comfortable with some topics/managers but not others; need more consistent psychological safety across the organization",
-            "D": "Uncomfortable/afraid - Often afraid to express challenging views due to fear of negative consequences or retaliation"
+            "A": "I feel totally comfortable speaking up about anything - leadership actually encourages different viewpoints",
+            "B": "Usually comfortable, but sometimes I hold back on sensitive topics - a bit more encouragement would help",
+            "C": "Depends on the topic and who I'm talking to - wish it felt more consistently safe to share honest opinions",
+            "D": "I keep quiet most of the time - worried about negative consequences or getting in trouble for speaking up"
         }
     },
     "Q11_AI_Future_Readiness": {
-        "question": "How excited are you about AI implementation and other technological changes?",
+        "question": "How do you feel about all this AI stuff coming into our work? Excited, nervous, or somewhere in between?",
         "options": {
-            "A": "Enthusiastic and prepared - Excited about AI opportunities, feel adequately skilled, and confident about adapting to technological changes",
-            "B": "Interested but need training - See the potential benefits but need specific training and support to develop necessary skills and confidence",
-            "C": "Anxious but willing - Worried about keeping up with changes but willing to learn; need comprehensive training and ongoing support",
-            "D": "Fearful of being left behind - Concerned that technological changes will make my skills obsolete; need immediate intensive support and training"
+            "A": "Bring it on! I'm excited about the possibilities and feel ready to adapt to whatever tech changes come our way",
+            "B": "Interested and see the potential, but I'll definitely need some training and support to feel confident with it",
+            "C": "A bit nervous but willing to learn - just need comprehensive training and ongoing support to keep up",
+            "D": "Pretty worried about being left behind - concerned these changes will make my current skills irrelevant"
         }
     },
     "Q12_Most_Important_Action": {
-        "question": "What single most important action could the Bank take to improve your overall experience?",
+        "question": "If you could wave a magic wand and change one thing to make your work experience better, what would it be?",
         "options": {
-            "A": "Improve communication and transparency - Provide clearer, more frequent communication about strategy, changes, and how they affect individuals",
-            "B": "Address workload and work-life balance - Implement realistic workload management and support better work-life balance during transformation",
-            "C": "Invest in people development - Prioritize employee growth, training, and career development to help navigate the changing landscape",
-            "D": "Demonstrate genuine commitment to employee feedback - Take concrete, visible action on employee concerns and consistently follow through on promises"
+            "A": "Better communication - more transparency about what's happening, why decisions are made, and how changes affect me personally",
+            "B": "Fix the work-life balance - realistic workloads, better time management, and actual support for managing stress",
+            "C": "Invest in our people - more focus on training, career development, and helping us navigate all these changes",
+            "D": "Actually listen to us - take real action on employee feedback and consistently follow through on promises"
         }
     }
 }
@@ -167,7 +167,7 @@ def save_response(response_data):
 def survey_form():
     """Display the survey form"""
     st.header("🎯 2026 My Voice Employee Survey")
-    st.write("Your feedback is valuable and will be kept confidential. Please answer all questions honestly.")
+    st.write("Your feedback matters! Please be honest - this is completely anonymous and confidential. If none of the options fit exactly, feel free to type your own response.")
     
     with st.form("employee_survey"):
         # Generate unique session ID
@@ -176,47 +176,76 @@ def survey_form():
         st.info(f"📝 Interview Session ID: **{session_id}**")
         
         responses = {}
+        custom_responses = {}
         
         # Display all questions
         for question_id, question_data in SURVEY_QUESTIONS.items():
             st.subheader(f"Question {question_id.split('_')[0][1:]}")
-            st.write(question_data["question"])
+            st.write(f"**{question_data['question']}**")
             
-            # Create selectbox with options
-            option_labels = [f"{key}: {value[:100]}..." if len(value) > 100 else f"{key}: {value}" 
-                           for key, value in question_data["options"].items()]
+            # Create radio buttons with options + "Other" option
+            options_list = list(question_data["options"].keys()) + ["Other (please specify)"]
             
-            selected_option = st.selectbox(
-                "Select your response:",
-                options=list(question_data["options"].keys()),
-                format_func=lambda x: f"{x}: {question_data['options'][x][:100]}..." if len(question_data['options'][x]) > 100 else f"{x}: {question_data['options'][x]}",
+            selected_option = st.radio(
+                "Choose your response:",
+                options=options_list,
+                format_func=lambda x: f"{x}: {question_data['options'][x]}" if x in question_data["options"] else x,
                 key=question_id
             )
             
-            responses[question_id] = selected_option
+            # If "Other" is selected, show text input
+            if selected_option == "Other (please specify)":
+                custom_response = st.text_area(
+                    "Please share your thoughts:",
+                    placeholder="Type your response here...",
+                    key=f"{question_id}_custom",
+                    height=100
+                )
+                responses[question_id] = "Other"
+                custom_responses[question_id] = custom_response
+            else:
+                responses[question_id] = selected_option
+                custom_responses[question_id] = ""
+            
+            # Show selected option description
+            if selected_option in question_data["options"]:
+                st.caption(f"💭 {question_data['options'][selected_option]}")
+            
             st.write("---")
         
         # Submit button
-        submitted = st.form_submit_button("📤 Submit Survey", type="primary")
+        submitted = st.form_submit_button("📤 Submit My Response", type="primary")
         
         if submitted:
-            # Prepare data for saving
-            response_data = {
-                "session_id": session_id,
-                "timestamp": datetime.now(),
-                "responses": responses
-            }
+            # Validate that custom responses are filled if "Other" was selected
+            validation_error = False
+            for question_id, response in responses.items():
+                if response == "Other" and not custom_responses[question_id].strip():
+                    st.error(f"⚠️ Please provide your custom response for Question {question_id.split('_')[0][1:]}")
+                    validation_error = True
             
-            # Save to MongoDB
-            if save_response(response_data):
-                st.success(f"✅ Survey submitted successfully! Session ID: {session_id}")
-                st.balloons()
+            if not validation_error:
+                # Prepare data for saving
+                response_data = {
+                    "session_id": session_id,
+                    "timestamp": datetime.now(),
+                    "responses": responses,
+                    "custom_responses": custom_responses
+                }
                 
-                # Option to start new survey
-                # if st.button("🔄 Start New Survey"):
-                    # st.experimental_rerun()
-            else:
-                st.error("❌ Failed to submit survey. Please try again.")
+                # Save to MongoDB
+                if save_response(response_data):
+                    st.success(f"✅ Thank you! Your response has been recorded successfully!")
+                    st.success(f"📋 Session ID: **{session_id}** (for your records)")
+                    st.balloons()
+                    
+                    # Show thank you message
+                    st.info("🙏 Your feedback is valuable and will help improve our workplace. Feel free to share any additional thoughts with your manager or HR team.")
+                    
+                    # Note about starting new survey
+                    st.info("💡 To start another survey, simply refresh the page or click 'New Survey' in the sidebar.")
+                else:
+                    st.error("❌ Oops! Something went wrong. Please try submitting again.")
 
 def create_response_distribution_chart(df, question_id):
     """Create a pie chart for response distribution"""
@@ -294,6 +323,11 @@ def analytics_dashboard():
             'timestamp': row['timestamp']
         }
         flat_row.update(row['responses'])
+        # Add custom responses with _custom suffix
+        if 'custom_responses' in row:
+            for key, value in row['custom_responses'].items():
+                if value and value.strip():  # Only add non-empty custom responses
+                    flat_row[f"{key}_custom"] = value
         flattened_data.append(flat_row)
     
     analysis_df = pd.DataFrame(flattened_data)
@@ -318,7 +352,7 @@ def analytics_dashboard():
     
     with col4:
         # Calculate satisfaction (average of A responses across all questions)
-        total_responses = len(analysis_df) * 12 # 12 questions
+        total_responses = len(analysis_df) * 12  # 12 questions
         a_responses = sum([len(analysis_df[analysis_df[col] == 'A']) for col in analysis_df.columns if col.startswith('Q')])
         satisfaction_pct = (a_responses / total_responses) * 100 if total_responses > 0 else 0
         st.metric("Overall Satisfaction", f"{satisfaction_pct:.1f}%")
@@ -348,7 +382,30 @@ def analytics_dashboard():
             
             for option, count in response_counts.items():
                 percentage = (count / len(analysis_df)) * 100
-                st.write(f"**Option {option}** ({percentage:.1f}%): {question_data['options'][option]}")
+                if option == "Other":
+                    st.write(f"**Option {option}** ({percentage:.1f}%): Custom responses (see Raw Data tab for details)")
+                    # Show some custom responses if available
+                    custom_col = f"{selected_question}_custom"
+                    if custom_col in analysis_df.columns:
+                        custom_responses = analysis_df[analysis_df[selected_question] == "Other"][custom_col].dropna()
+                        if len(custom_responses) > 0:
+                            st.write("📝 **Sample custom responses:**")
+                            for i, response in enumerate(custom_responses.head(3), 1):
+                                if response.strip():
+                                    st.write(f"   {i}. \"{response[:100]}{'...' if len(response) > 100 else ''}\"")
+                else:
+                    st.write(f"**Option {option}** ({percentage:.1f}%): {question_data['options'][option]}")
+            
+            # Custom responses analysis
+            custom_col = f"{selected_question}_custom"
+            if custom_col in analysis_df.columns:
+                custom_count = len(analysis_df[analysis_df[custom_col].notna() & (analysis_df[custom_col] != "")])
+                if custom_count > 0:
+                    with st.expander(f"📝 View All Custom Responses ({custom_count} responses)"):
+                        custom_responses = analysis_df[analysis_df[custom_col].notna() & (analysis_df[custom_col] != "")][custom_col]
+                        for i, response in enumerate(custom_responses, 1):
+                            st.write(f"**{i}.** {response}")
+                            st.write("---")
     
     with tab2:
         st.subheader("Priority Areas for Action")
@@ -426,8 +483,19 @@ def analytics_dashboard():
         # Apply filters
         filtered_df = analysis_df[analysis_df['session_id'].isin(session_filter)]
         
-        # Display data
+        # Display data with custom responses
         st.dataframe(filtered_df, use_container_width=True)
+        
+        # Show summary of custom responses if any
+        custom_columns = [col for col in filtered_df.columns if col.endswith('_custom')]
+        if custom_columns:
+            total_custom = 0
+            for col in custom_columns:
+                custom_count = len(filtered_df[filtered_df[col].notna() & (filtered_df[col] != "")])
+                total_custom += custom_count
+            
+            if total_custom > 0:
+                st.info(f"📝 **{total_custom}** custom responses found in this dataset. Custom responses are shown in columns ending with '_custom'")
         
         # Download option
         csv = filtered_df.to_csv(index=False)
@@ -456,6 +524,11 @@ def main():
         ["📝 New Survey", "📊 Analytics", "ℹ️ About"]
     )
     
+    # Add start new survey button in sidebar
+    if page == "📝 New Survey":
+        if st.sidebar.button("🔄 Start Fresh Survey", type="secondary"):
+            st.experimental_rerun()
+    
     if page == "📝 New Survey":
         survey_form()
     
@@ -469,23 +542,26 @@ def main():
         
         **Features:**
         - ✅ Secure data collection with unique session IDs
+        - 💬 Informal, conversational questions that feel natural
+        - 📝 Option to provide custom responses for any question
         - 📊 Real-time analytics and visualizations
-        - 🔍 Detailed response analysis
+        - 🔍 Detailed response analysis including custom feedback
         - 📈 Trend tracking over time
         - 📥 Data export capabilities
         
         **How to Use:**
-        1. **New Survey**: Click 'Start New Interview Session' to begin
+        1. **New Survey**: Start a fresh interview session
         2. **Analytics**: View comprehensive analysis of collected responses
         3. **Export**: Download data for further analysis
         
         **Privacy & Security:**
-        - All responses are anonymous
+        - All responses are completely anonymous
         - Data is securely stored in MongoDB
         - Session IDs are randomly generated
+        - Custom responses are kept confidential
         """)
         
-        st.info("💡 **Tip**: Use the Analytics section to identify areas requiring immediate attention based on survey responses.")
+        st.info("💡 **Tip**: Use the Analytics section to identify areas requiring immediate attention based on survey responses. Custom responses provide valuable qualitative insights!")
 
 if __name__ == "__main__":
     main()
