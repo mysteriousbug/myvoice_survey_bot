@@ -14,7 +14,7 @@ def init_connection():
     """Initialize MongoDB connection"""
     try:
         # Get MongoDB URI from environment variable or Streamlit secrets
-        mongo_uri = st.secrets.get("MONGODB_URI", "mongodb://localhost:27017/")
+        mongo_uri = st.secrets["MONGODB_URI"]
         client = pymongo.MongoClient(mongo_uri)
         return client
     except Exception as e:
